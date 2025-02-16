@@ -1,9 +1,9 @@
 import { Tabs } from "expo-router";
-import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { colors, fontSize } from "../constants/tokens";
 import { BlurView } from "expo-blur";
-import NowPlayingWidget from "../components/now_playing";
+
 import React from "react";
 
 export default function RootLayout() {
@@ -26,20 +26,8 @@ export default function RootLayout() {
                     height: "8%",
                     margin: 10,
                     marginHorizontal: 20,
+                    backgroundColor: colors.gray,
                 },
-
-                tabBarBackground: () => (
-                    <BlurView
-                        intensity={65}
-                        tint="dark"
-                        style={{
-                            ...StyleSheet.absoluteFillObject,
-                            overflow: "hidden",
-                            borderTopLeftRadius: 10,
-                            borderTopRightRadius: 10,
-                        }}
-                    />
-                ),
 
                 tabBarActiveTintColor: colors.primary,
                 tabBarShowLabel: true,
@@ -64,23 +52,7 @@ export default function RootLayout() {
                             color={color}
                         />
                     ),
-                    headerLeft: () => (
-                        <TouchableOpacity
-                            onPress={() => console.log("Profile pressed!")}
-                        >
-                            <Image
-                                source={{
-                                    uri: "https://gratisography.com/wp-content/uploads/2024/11/gratisography-augmented-reality-800x525.jpg",
-                                }}
-                                style={{
-                                    width: 40,
-                                    height: 40,
-                                    borderRadius: 20,
-                                    margin: 15,
-                                }}
-                            />
-                        </TouchableOpacity>
-                    ),
+                    headerLeft: undefined,
                     headerRight: undefined,
                 }}
             />
@@ -88,7 +60,8 @@ export default function RootLayout() {
                 name="(songs)"
                 options={{
                     headerShown: false,
-                    title: "Songs",
+                    title: "",
+                    tabBarLabel: "Songs",
                     tabBarIcon: ({ color, focused }) => (
                         <FontAwesome6
                             name={focused ? "music" : "music"}
@@ -102,7 +75,8 @@ export default function RootLayout() {
                 name="library"
                 options={{
                     headerShown: false,
-                    title: "Library",
+                    title: "",
+                    tabBarLabel: "Library",
                     tabBarIcon: ({ color, focused }) => (
                         <FontAwesome6
                             name={focused ? "book" : "book"}

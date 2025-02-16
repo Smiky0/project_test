@@ -2,8 +2,9 @@ export const colors = {
     primary: "#3bb8e5",
     secondary: "#dddcff",
     background: "#131313",
+    gray: "#202020",
     text: "#fff",
-    textMuted: "#c3c3c3",
+    textMuted: "#d1d1d1",
     icon: "#fff",
     maximumTrackTintColor: "rgba(255, 255, 255, 0.4)",
     minimumTrackTintColor: "rgba(255, 255, 255, 0.1)"
@@ -20,4 +21,4 @@ export const screenPadding = {
     horizontal: 24,
 }
 
-export default colors;
+export default function(){};

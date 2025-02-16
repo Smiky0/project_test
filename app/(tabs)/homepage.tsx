@@ -1,58 +1,44 @@
-import { useNavigation } from "expo-router";
-import { StyleSheet, Text } from "react-native";
-import MusicGridScreen from "../components/music_grid";
-import { useEffect } from "react";
-import SongListScreen from "../components/song_list";
-import { ScrollView } from "react-native-gesture-handler";
-
-import { colors, fontSize } from "../constants/tokens";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import MusicGridScreen from "../components/MusicGrid";
+import SongListScreen from "../components/AlbumSongs";
+import { colors } from "../constants/tokens";
 import React from "react";
+import { defaultStyles } from "../styles";
 
 export default function HomeScreen() {
-    const navigation = useNavigation();
-    useEffect(() => {
-        navigation.setOptions({ headerShown: false });
-    }, [navigation]);
+    const sections = [
+        { id: "1", title: "Trending", component: <MusicGridScreen /> },
+        {
+            id: "2",
+            title: "Suggested for you",
+            component: <SongListScreen />,
+        },
+    ];
 
     return (
-        <ScrollView
-            style={styles.container}
+        <FlatList
+            data={sections}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+                <View style={{ padding: 10 }}>
+                    <Text style={defaultStyles.title}>{item.title}</Text>
+                    <View>{item.component}</View>
+                </View>
+            )}
+            contentContainerStyle={styles.container}
+            scrollEnabled={true}
             showsVerticalScrollIndicator={false}
-        >
-            <Text
-                style={{
-                    color: colors.text,
-                    fontSize: fontSize.lg,
-                    padding: 10,
-                    paddingBottom: 12,
-                    fontWeight: "600",
-                }}
-            >
-                Trending
-            </Text>
-            <MusicGridScreen />
-            <Text
-                style={{
-                    color: colors.text,
-                    fontSize: fontSize.lg,
-                    padding: 10,
-                    paddingBottom: 12,
-                    fontWeight: "600",
-                }}
-            >
-                Suggested albums for you
-            </Text>
-            <SongListScreen />
-        </ScrollView>
+            nestedScrollEnabled={true} // Allows inner FlatLists to scroll properly
+        />
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: colors.background,
-        padding: 6,
-        paddingBottom: 120,
+        padding: 4,
+        paddingTop: 50,
+        paddingBottom: 140,
     },
     button: {
         fontSize: 20,
